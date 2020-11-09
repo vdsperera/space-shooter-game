@@ -1,6 +1,11 @@
 import pygame
 import os
 
+
+HEIGHT, WIDTH = 650, 650
+
+WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
+
 # Loading Images
 
 # Enemy Ships
@@ -22,9 +27,24 @@ YELLOW_LASER = pygame.image.load(os.path.join('assets', 'pixel_laser_yellow.png'
 
 # Background
 
-BLACK_BACKGROUND = pygame.image.load(os.path.join('assets', 'background_black.png'))
+BLACK_BACKGROUND = pygame.transform.scale(pygame.image.load(os.path.join('assets', 'background_black.png')), (WIDTH, HEIGHT))
 
 
-HEIGHT, WIDTH = 650, 650
+def main():
 
-WINDOW = pygame.display.set_mode((HEIGHT, WIDTH))
+    def redraw():
+        WINDOW.blit(BLACK_BACKGROUND, (0,0))
+        pygame.display.update()
+
+    run = True
+    FPS = 30
+    clock = pygame.time.Clock()
+    
+    while True:
+        clock.tick()
+        redraw()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return False
+
+main()
